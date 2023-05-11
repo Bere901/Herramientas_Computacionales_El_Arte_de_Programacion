@@ -1,7 +1,4 @@
-"""Paint, for drawing shapes.
-
-Exercises
-
+"""
 1. Add a color.
 2. Complete circle.
 3. Complete rectangle.
@@ -38,7 +35,16 @@ def square(start, end):
 
 def circle(start, end):
     """Draw circle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+
+    for count in range(40):
+        forward(end.x - start.x)
+        left(10)
+
+    end_fill()
 
 
 def rectangle(start, end):
@@ -79,6 +85,7 @@ onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+onkey(lambda: color('yellow'), 'Y')
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
