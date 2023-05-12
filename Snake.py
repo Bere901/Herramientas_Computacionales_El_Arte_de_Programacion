@@ -74,7 +74,7 @@ def move():
 
     snake.append(head)
 
-    # This will create new food on the map.
+    # This will randomly create new food on the map inside the screen.
     if head == food:
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
@@ -94,6 +94,7 @@ def move():
     ontimer(move, 100)
 
 
+#Setting the enviroment and controls 
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
