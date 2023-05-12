@@ -8,11 +8,13 @@ Exercises
 4. Change the speed of the ball.
 """
 
+# Libraries
 from random import randrange
 from turtle import *
 
 from freegames import vector
 
+# Variables
 ball = vector(-200, -200)
 speed = vector(0, 0)
 targets = []
@@ -29,7 +31,8 @@ def tap(x, y):
 
 def inside(xy):
     """Return True if xy within screen."""
-    return -200 < xy.x < 200 and -200 < xy.y < 200
+    # Our screen is 200 x 200, so in order to make our vanish effect to make an infinite game, we just add 20 more at x.
+    return -220 < xy.x < 220 and -200 < xy.y < 200
 
 
 def draw():
@@ -38,11 +41,11 @@ def draw():
 
     for target in targets:
         goto(target.x, target.y)
-        dot(20, 'blue')
+        dot(20, 'blue')  # Will create a blue ball for targets.
 
     if inside(ball):
         goto(ball.x, ball.y)
-        dot(6, 'red')
+        dot(6, 'red')  # Will create a red ball for bullets.
 
     update()
 
@@ -70,9 +73,10 @@ def move():
 
     draw()
 
+    # When target isn't at the screen, reappear the target on the other side instead of ending.
     for target in targets:
         if not inside(target):
-            return
+            target.x = 220
 
     ontimer(move, 50)
 
