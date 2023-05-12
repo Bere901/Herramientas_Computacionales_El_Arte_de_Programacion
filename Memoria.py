@@ -18,7 +18,9 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
-
+global clicks 
+clicks = 0
+screensize(450, 450, None)
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -31,6 +33,7 @@ def square(x, y):
         forward(50)
         left(90)
     end_fill()
+    
 
 
 def index(x, y):
@@ -44,17 +47,22 @@ def xy(count):
 
 
 def tap(x, y):
+    global clicks 
     """Update mark and hidden tiles based on tap."""
     spot = index(x, y)
     mark = state['mark']
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
+        clicks = clicks + 1
     else:
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
-
+        clicks = clicks + 1  
+    print(clicks)
+    
+   
 
 def draw():
     """Draw image and tiles."""
@@ -67,6 +75,7 @@ def draw():
         if hide[count]:
             x, y = xy(count)
             square(x, y)
+        
 
     mark = state['mark']
 
@@ -76,13 +85,16 @@ def draw():
         goto(x + 2, y)
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
-
+    penup()
+    setposition(-200,200)
+    pendown()
+    write("Número de taps: " + str(clicks), False,'left', ('Arial', 15, 'normal'))  
     update()
     ontimer(draw, 100)
 
 
 shuffle(tiles)
-setup(420, 420, 370, 0)
+setup(460, 480, 370, 50)
 addshape(car)
 hideturtle()
 tracer(False)
