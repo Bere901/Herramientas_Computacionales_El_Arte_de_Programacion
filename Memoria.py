@@ -49,7 +49,7 @@ def xy(count):
 def tap(x, y):
     global clicks 
     """Update mark and hidden tiles based on tap."""
-    spot = index(x, y)
+    spot = index(0, 0)
     mark = state['mark']
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
