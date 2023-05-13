@@ -9,11 +9,13 @@ Exercises
 5. Make the ghosts smarter.
 """
 
+# Libraries
 from random import choice
 from turtle import *
 
 from freegames import floor, vector
 
+# Variables, ghosts starting points and direction of movement
 state = {'score': 0}
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
@@ -26,6 +28,8 @@ ghosts = [
     [vector(100, -160), vector(-5, 0)],
 ]
 # fmt: off
+
+# Location of the points in the board 
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
@@ -50,7 +54,7 @@ tiles = [
 ]
 # fmt: on
 
-
+# Draws the path for the game
 def square(x, y):
     """Draw square using path at (x, y)."""
     path.up()
@@ -64,7 +68,7 @@ def square(x, y):
 
     path.end_fill()
 
-
+# Returns middle point for the dot points
 def offset(point):
     """Return offset of point in tiles."""
     x = (floor(point.x, 20) + 200) / 20
@@ -72,7 +76,7 @@ def offset(point):
     index = int(x + y * 20)
     return index
 
-
+# Checks if the point calculated in the last function is a valid space
 def valid(point):
     """Return True if point is valid in tiles."""
     index = offset(point)
@@ -87,7 +91,7 @@ def valid(point):
 
     return point.x % 20 == 0 or point.y % 20 == 0
 
-
+# Draws the distribution of the map for the game 
 def world():
     """Draw world using path."""
     bgcolor('black')
@@ -106,7 +110,7 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
-
+# Sets the movement for the ghosts and pacman
 def move():
     """Move pacman and all ghosts."""
     writer.undo()
@@ -143,7 +147,6 @@ def move():
             plan = choice(options)
             course.x = plan.x
             course.y = plan.y
-
         up()
         goto(point.x + 10, point.y + 10)
         dot(20, 'red')
@@ -156,7 +159,7 @@ def move():
 
     ontimer(move, 100)
 
-
+# Changes de direction of pacman if valid 
 def change(x, y):
     """Change pacman aim if valid."""
     if valid(pacman + vector(x, y)):
@@ -164,6 +167,7 @@ def change(x, y):
         aim.y = y
 
 
+# Sets the window for display and defines the movement commands
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)
